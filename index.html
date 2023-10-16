@@ -16,28 +16,34 @@
     <script>
 
         var vlSpec = {
-            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-            "data": {"url": "https://vega.github.io/editor/data/movies.json"},
-            "hconcat": [
-                {
-                "params": [{"name": "myfirstparam", "select": "interval"}],
-                "mark": "bar",
-                "encoding": {
-                    "x": {"field": "IMDB Rating", "type": "quantitative", "bin": true},
-                    "y": {"aggregate": "mean", "field": "US Gross"}
-                }
-                },
-                {
-                "transform": [{"filter": {"param": "myfirstparam"}}],
-                "mark": "point",
-                "encoding": {
-                    "x": {"field": "US Gross", "type": "quantitative"},
-                    "y": {"field": "Worldwide Gross", "type": "quantitative"},
-                    "color": {"value": "grey", "condition": {"param": "myfirstparam"}}
-                }
-                }
-            ]
-        };
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://uiuc-ischool-dataviz.github.io/fall2023-acg-acu/data/building_inventory.csv"
+  },
+  "vconcat": [
+    {
+      "params": [{"name": "myfirstparam", "select": "point"}],
+      "mark": "point",
+      "encoding": {
+        "x": {"field": "Year Acquired", "type": "nominal"},
+        "y": {"field": "Year Constructed", "type": "nominal"}
+      }
+    },
+    {
+      "params": [{"name": "mysecondparam", "select": "interval"}],
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "Congress Dist", "bin": {"maxbins": 20}},
+        "y": {
+          "aggregate": "sum",
+          "field": "Square Footage",
+          "type": "quantitative"
+        }
+      }
+    }
+  ],
+  "config": {}
+};
         vegaEmbed("#viz", vlSpec)
     </script>
 </body>
